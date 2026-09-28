@@ -1,0 +1,25 @@
+pipeline{
+    agent any
+    stages{
+        stage('checkout'){
+            steps{
+                checkout scm
+            }
+        }
+        stage('show Files'){
+            steps{
+                bat 'dir'
+            }
+        }
+        stage('Test'){
+            steps{
+                bat 'python -m unittest test_calculator.py'
+            }
+        }
+        stage('Deploy'){
+            steps{
+                bat 'xcopy /Y calculator.py dist\\'
+            }
+        }
+    }
+}
